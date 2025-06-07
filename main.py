@@ -1,5 +1,3 @@
-# Implementacja struktury zbiorów rozłącznych (Disjoint Set Union)
-# do efektywnego wykrywania cykli.
 class DSU:
     def __init__(self, n):
         # Każdy wierzchołek jest na początku swoim własnym rodzicem.
@@ -52,10 +50,8 @@ def kruskal(graph, num_vertices):
     return mst, total_weight
 
 
-# --- Główna część programu ---
 if __name__ == "__main__":
     try:
-        # Wprowadzanie danych o grafie
         num_vertices = int(input("Podaj liczbę wierzchołków w grafie: "))
         num_edges = int(input("Podaj liczbę krawędzi w grafie: "))
 
@@ -80,10 +76,8 @@ if __name__ == "__main__":
                         "Błąd: nieprawidłowy format. Podaj trzy liczby oddzielone spacją."
                     )
 
-        # Wykonanie algorytmu Kruskala
         minimum_spanning_tree, total_weight = kruskal(graph_edges, num_vertices)
 
-        # Wyświetlenie wyników
         print("\n--- Minimalne Drzewo Rozpinające (MST) ---")
         if not minimum_spanning_tree or len(minimum_spanning_tree) < num_vertices - 1:
             print("Graf jest niespójny. Nie można utworzyć MST.")
@@ -97,3 +91,5 @@ if __name__ == "__main__":
         print("Błąd: Wprowadzono nieprawidłową wartość. Oczekiwano liczby całkowitej.")
     except Exception as e:
         print(f"Wystąpił nieoczekiwany błąd: {e}")
+
+    input("Naciśnij Enter, aby zakończyć program...")
