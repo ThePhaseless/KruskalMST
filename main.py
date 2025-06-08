@@ -51,45 +51,51 @@ def kruskal(graph, num_vertices):
 
 
 if __name__ == "__main__":
-    try:
-        num_vertices = int(input("Podaj liczbę wierzchołków w grafie: "))
-        num_edges = int(input("Podaj liczbę krawędzi w grafie: "))
+    while True:
+        try:
+            num_vertices = int(input("Podaj liczbę wierzchołków w grafie: "))
+            num_edges = int(input("Podaj liczbę krawędzi w grafie: "))
 
-        graph_edges = []
-        print("Podaj dane dla każdej krawędzi w formacie 'u v w'")
-        print("(wierzchołek_początkowy wierzchołek_końcowy waga)")
-        print(f"Wierzchołki numeruj od 0 do {num_vertices - 1}.")
+            graph_edges = []
+            print("Podaj dane dla każdej krawędzi w formacie 'u v w'")
+            print("(wierzchołek_początkowy wierzchołek_końcowy waga)")
+            print(f"Wierzchołki numeruj od 0 do {num_vertices - 1}.")
 
-        for i in range(num_edges):
-            while True:
-                try:
-                    u, v, w = map(int, input(f"Krawędź {i + 1}: ").split())
-                    if u < 0 or u >= num_vertices or v < 0 or v >= num_vertices:
+            for i in range(num_edges):
+                while True:
+                    try:
+                        u, v, w = map(int, input(f"Krawędź {i + 1}: ").split())
+                        if u < 0 or u >= num_vertices or v < 0 or v >= num_vertices:
+                            print(
+                                f"Błąd: numery wierzchołków muszą być w zakresie od 0 do {num_vertices - 1}."
+                            )
+                            continue
+                        graph_edges.append((w, u, v))
+                        break
+                    except ValueError:
                         print(
-                            f"Błąd: numery wierzchołków muszą być w zakresie od 0 do {num_vertices - 1}."
+                            "Błąd: nieprawidłowy format. Podaj trzy liczby oddzielone spacją."
                         )
-                        continue
-                    graph_edges.append((w, u, v))
-                    break
-                except ValueError:
-                    print(
-                        "Błąd: nieprawidłowy format. Podaj trzy liczby oddzielone spacją."
-                    )
 
-        minimum_spanning_tree, total_weight = kruskal(graph_edges, num_vertices)
+            minimum_spanning_tree, total_weight = kruskal(graph_edges, num_vertices)
 
-        print("\n--- Minimalne Drzewo Rozpinające (MST) ---")
-        if not minimum_spanning_tree or len(minimum_spanning_tree) < num_vertices - 1:
-            print("Graf jest niespójny. Nie można utworzyć MST.")
-        else:
-            print("Krawędzie w MST (u, v, waga):")
-            for u, v, weight in minimum_spanning_tree:
-                print(f"({u}, {v}, {weight})")
-            print(f"\nCałkowita waga MST: {total_weight}")
+            print("\n--- Minimalne Drzewo Rozpinające (MST) ---")
+            if not minimum_spanning_tree or len(minimum_spanning_tree) < num_vertices - 1:
+                print("Graf jest niespójny. Nie można utworzyć MST.")
+            else:
+                print("Krawędzie w MST (u, v, waga):")
+                for u, v, weight in minimum_spanning_tree:
+                    print(f"({u}, {v}, {weight})")
+                print(f"\nCałkowita waga MST: {total_weight}")
 
-    except ValueError:
-        print("Błąd: Wprowadzono nieprawidłową wartość. Oczekiwano liczby całkowitej.")
-    except Exception as e:
-        print(f"Wystąpił nieoczekiwany błąd: {e}")
+        except ValueError:
+            print("Błąd: Wprowadzono nieprawidłową wartość. Oczekiwano liczby całkowitej.")
+        except Exception as e:
+            print(f"Wystąpił nieoczekiwany błąd: {e}")
+
+        restart = input("Naciśnij '+' aby uruchomić program ponownie lub dowolny inny klawisz, aby zakończyć: ").strip()
+        if restart != "+":
+            print("Kończenie programu...")
+            break
 
     input("Naciśnij Enter, aby zakończyć program...")
